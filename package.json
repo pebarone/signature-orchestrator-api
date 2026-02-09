@@ -1,9 +1,10 @@
 {
   "name": "adobe-api",
-  "version": "1.0.0",
-  "main": "server/serverModules/backend.js",
+  "version": "2.0.0",
+  "main": "server/app.js",
   "scripts": {
-    "start": "node server/serverModules/backend.js",
+    "start": "node server/app.js",
+    "start:legacy": "node server/serverModules/backend.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

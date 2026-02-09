@@ -1,20 +1,10 @@
+// Logger Utility - Winston-based logging
 const { createLogger, format, transports } = require("winston");
-const path = require("path");
+const paths = require("../config/paths");
 
 const logFormat = format.printf(({ timestamp, level, message }) => {
   return `[${timestamp}] ${level.toUpperCase()}: ${message}`;
 });
-
-// Define caminhos de log dinâmicos conforme ambiente
-const errorLogPath =
-  process.env.NODE_ENV === "production"
-    ? "/tmp/error.log"
-    : path.join(__dirname, "../logs/error.log");
-
-const auditLogPath =
-  process.env.NODE_ENV === "production"
-    ? "/tmp/audit.log"
-    : path.join(__dirname, "../logs/audit.log");
 
 const logger = createLogger({
   level: "info",
@@ -24,20 +14,20 @@ const logger = createLogger({
     }),
     format.errors({ stack: true }),
     format.splat(),
-    format.json()
+    format.json(),
   ),
   transports: [
     new transports.File({
-      filename: errorLogPath,
+      filename: paths.logs.error,
       level: "error",
       format: format.combine(format.timestamp(), logFormat),
     }),
     new transports.File({
-      filename: auditLogPath,
+      filename: paths.logs.audit,
       level: "info",
       format: format.combine(format.timestamp(), logFormat),
     }),
-    // Sempre adiciona log no console, inclusive em produção/cloud!
+    // Console output for all environments
     new transports.Console({
       format: format.combine(format.colorize(), logFormat),
     }),
