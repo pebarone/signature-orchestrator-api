@@ -164,6 +164,3 @@ I was responsible for:
 - Deployment and environment configuration
 ---
 
-## 📄 License
-
-This project is for internal use by Stratesys employees only. Any unauthorized copies are illegal according to copyright laws. 
